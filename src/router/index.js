@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/newpage',
     name: '新增葉面',
-    component: () => import('../views/NewPage.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/NewPage.vue'),
   },
 ];
 
