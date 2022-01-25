@@ -14,5 +14,11 @@ export default {
   components: {
     HelloWorld,
   },
+  created:function(){
+    console.log(process.env.VUE_APP_API,process.env.VUE_APP_PATH)
+  }
 };
 </script>
+
+
+ 

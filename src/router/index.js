@@ -7,18 +7,73 @@ const routes = [
     name: 'Home',
     component: Home,
   },
-  {
+  { 
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/newpage',
+    path: '/Login',
+    component: ()=>import('../views/Login.vue'),
+  },
+  {
+    path: '/Dashboard',
+    component: ()=>import('../views/Dashboard.vue'),
+  },
+  {
+    path: '/NewPage',
     name: '新增葉面',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NewPage.vue'),
+    component: () => import('../views/NewPage.vue'),
+    children:[
+      {
+      path:'a',
+      component:() => import('../views/componentA.vue')
+      },
+      {
+      path:'b',
+      component:() => import('../views/componentB.vue')
+      },
+      {
+        path:'DynamicRouter/:id',
+        component:() => import('../views/DynamicRouter.vue')
+      },
+      {
+        path:'DynamicRouterByProps/:id',
+        component:() => import('../views/DynamicRouterByProps.vue'),
+        props:(route)=>{
+          return{
+            id:route.params.id,
+          }
+        },
+      },
+      {
+        path:'RouterNavigation',
+        component:() => import('../views/RouterNavigation.vue')
+      },
+      {
+      path:'NamedView',
+      component:() => import('../views/NamedView.vue'),
+      children:[
+        {
+          path:'c2a',
+          components:{
+            left:() => import('../views/componentC.vue'),
+            right:() => import('../views/componentA.vue'),
+          },
+        },
+      ],
+      },
+    ],
+  },
+  // {
+  //   path:'/:pathMatch(.*)*',
+  //   component:()=>import('../views/NotFound.vue'),
+  // },
+  {
+    path:'/:pathMatch(.*)*',
+    redirect:{
+      name:'Home',
+    },
   },
 ];
 
@@ -27,3 +82,4 @@ const router = createRouter({
   routes,
 });
 export default router;
+
