@@ -19,6 +19,12 @@ const routes = [
   {
     path: '/Dashboard',
     component: ()=>import('../views/Dashboard.vue'),
+    children:[
+      {
+      path:'Product',
+      component:()=>import('../views/Product.vue'),
+      },
+    ]
   },
   {
     path: '/NewPage',
@@ -27,15 +33,15 @@ const routes = [
     children:[
       {
       path:'a',
-      component:() => import('../views/componentA.vue')
+      component:() => import('../views/componentA.vue'),
       },
       {
       path:'b',
-      component:() => import('../views/componentB.vue')
+      component:() => import('../views/componentB.vue'),
       },
       {
         path:'DynamicRouter/:id',
-        component:() => import('../views/DynamicRouter.vue')
+        component:() => import('../views/DynamicRouter.vue'),
       },
       {
         path:'DynamicRouterByProps/:id',
