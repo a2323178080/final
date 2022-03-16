@@ -18,7 +18,7 @@
                   data-bs-dismiss="modal">取消
           </button>
           <button type="button" class="btn btn-danger"
-                  @click="$emit('del-item')">確認刪除
+                  v-on:click="$emit('del-item')">確認刪除
           </button>
         </div>
       </div>
@@ -41,3 +41,7 @@ export default {
   mixins: [modalMixin],
 };
 </script>
+
+
+
+

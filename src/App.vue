@@ -1,7 +1,7 @@
 <template>
 
-
   
+   
   <router-view/>
   
   
@@ -17,6 +17,7 @@
 
 <style lang="scss">
 @import "bootstrap"
+
 
 </style>
 
