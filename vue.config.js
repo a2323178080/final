@@ -1,8 +1,6 @@
 module.exports = {
-  publicPath: '/firstfuck/dist/',
+  publicPath: '/dist/',
   lintOnSave: false,
-
-  
 }
 
 
