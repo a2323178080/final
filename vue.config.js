@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/dist/',
+  publicPath: '/firstfuck/dist/',
   lintOnSave: false,
 
   
