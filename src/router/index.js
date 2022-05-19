@@ -1,114 +1,129 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/Home.vue';
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue')
   },
-  { 
+  {
+    path: '/products',
+    name: 'Products',
+    component: () => import('../views/foreground/Products.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Products',
+        redirect: '/products/all'
+      },
+      {
+        path: 'all',
+        name: 'AllBike',
+        component: () => import('../views/foreground/productsPage/AllBike.vue')
+      },
+      {
+        path: 'city',
+        name: 'CityBike',
+        component: () => import('../views/foreground/productsPage/CityBike.vue')
+      },
+      {
+        path: 'electric',
+        name: 'ElectricBike',
+        component: () => import('../views/foreground/productsPage/ElectricBike.vue')
+      },
+      {
+        path: 'mountain',
+        name: 'MountainBike',
+        component: () => import('../views/foreground/productsPage/MountainBike.vue')
+      },
+      {
+        path: 'road',
+        name: 'RoadBike',
+        component: () => import('../views/foreground/productsPage/RoadBike.vue')
+      }
+    ]
+  },
+  {
+    path: '/productPage/:id',
+    name: 'ProductPage',
+    component: () => import('../views/foreground/ProductPage.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('../views/foreground/Cart.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import('../views/foreground/Checkout.vue')
+  },
+  {
+    path: '/checkoutPay/:orderId',
+    name: 'CheckoutPay',
+    component: () => import('../views/foreground/CheckoutPay.vue')
+  },
+  {
+    path: '/checkOrder',
+    name: 'CheckOrder',
+    component: () => import('../views/foreground/CheckOrder.vue')
+  },
+  {
+    path: '/followPage',
+    name: 'FollowPage',
+    component: () => import('../views/foreground/FollowPage.vue')
+  },
+  {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import('../views/foreground/About.vue')
   },
   {
-    path: '/Login',
-    component: ()=>import('../views/Login.vue'),
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/foreground/Login.vue')
   },
   {
-    path: '/Dashboard',
-    component: ()=>import('../views/Dashboard.vue'),
-    children:[
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/background/Dashboard.vue'),
+    meta: { requiresAuth: true },
+    children: [
       {
-      path:'Product',
-      component:()=>import('../views/Product.vue'),
+        path: 'product',
+        name: 'Product',
+        component: () => import('../views/background/Product.vue')
       },
       {
         path: 'orders',
-        component: () => import('../views/Orders.vue'),
+        name: 'Orders',
+        component: () => import('../views/background/Orders.vue')
       },
       {
         path: 'coupons',
-        component: () => import('../views/Coupons.vue'),
-      },
-    ],
+        name: 'Coupons',
+        component: () => import('../views/background/Coupons.vue')
+      }
+    ]
   },
   {
-    path: '/user',
-    component: () => import('../views/Userboard.vue'),
-    children: [
-      {
-        path: 'cart',
-        component: () => import('../views/UserCart.vue'),
-      },
-      {
-        path: 'product/:productId',
-        component: () => import('../views/UserProduct.vue'),
-      },
-    ],
-  },
-  {
-    path: '/NewPage',
-    name: '新增葉面',
-    component: () => import('../views/NewPage.vue'),
-    children:[
-      {
-      path:'a',
-      component:() => import('../views/componentA.vue'),
-      },
-      {
-      path:'b',
-      component:() => import('../views/componentB.vue'),
-      },
-      {
-        path:'DynamicRouter/:id',
-        component:() => import('../views/DynamicRouter.vue'),
-      },
-      {
-        path:'DynamicRouterByProps/:id',
-        component:() => import('../views/DynamicRouterByProps.vue'),
-        props:(route)=>{
-          return{
-            id:route.params.id,
-          }
-        },
-      },
-      {
-        path:'RouterNavigation',
-        component:() => import('../views/RouterNavigation.vue')
-      },
-      {
-      path:'NamedView',
-      component:() => import('../views/NamedView.vue'),
-      children:[
-        {
-          path:'c2a',
-          components:{
-            left:() => import('../views/componentC.vue'),
-            right:() => import('../views/componentA.vue'),
-          },
-        },
-      ],
-      },
-    ],
-  },
-  // {
-  //   path:'/:pathMatch(.*)*',
-  //   component:()=>import('../views/NotFound.vue'),
-  // },
-  {
-    path:'/:pathMatch(.*)*',
-    redirect:{
-      name:'Home',
-    },
-  },
-];
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
+  }
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  // linkActiveClass: 'active',
   routes,
-});
-export default router;
+  linkActiveClass: 'active',
+  scrollBehavior (to, from, savedPosition) {
+    const pages = to.fullPath
+    if (pages.match('/')) {
+      return {
+        top: 0
+      }
+    }
+  }
+})
 
+export default router
